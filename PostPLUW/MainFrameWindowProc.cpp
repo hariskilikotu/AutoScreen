@@ -48,10 +48,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				pCurrentJob->EndJob();
 				delete pCurrentJob;
 				pCurrentJob = NULL;
-				//Utils::ClickMouse(730,160);
-				//Sleep(3000);
-				//Utils::ClickMouse(610,100);
-				//Sleep(3000);
 			}
 
 			if(pCurrentJob)

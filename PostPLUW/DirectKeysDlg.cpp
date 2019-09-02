@@ -5,7 +5,7 @@
 #include "stdafx.h"
 #include "DirectKeysDlg.h"
 #include "resource.h"
-
+#include "FileUtils.h"
 #include "Settings.h"
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -60,6 +60,38 @@ int CALLBACK DirectKeysDialogBoxProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM
 			case IDCANCEL:
 				{
 					EndDialog(hDlg, 0);
+					break;
+				}
+			case IDC_BUTTON_SAVE_SCRIPT:
+				{
+					//IDC_STATIC_CURRENT_FILE
+					int nSize = SendDlgItemMessage(hDlg,IDC_EDIT_INPUT_KEYS,WM_GETTEXTLENGTH,0,0);
+					
+					if(nSize>0)
+					{
+						nSize++;
+						WCHAR * pszText = new WCHAR[nSize];
+						memset(pszText,0,nSize*sizeof(WCHAR));
+						GetDlgItemText(hDlg,IDC_EDIT_INPUT_KEYS,pszText,nSize);
+						DirectKeysDlg::m_bOK = true;
+						FileUtils::Instance()->SaveToFile(hDlg , pszText);
+						SetDlgItemText(hDlg, IDC_STATIC_CURRENT_FILE, FileUtils::Instance()->GetFileName());
+					}
+					break;
+
+				}
+			case IDC_BUTTON_OPEN_SCRIPT_FILE:
+				{
+					FileUtils::Instance()->OpenFile(hDlg);
+
+					FileUtils::Instance()->GetScript(hDlg,IDC_EDIT_INPUT_KEYS);
+
+					SetDlgItemText(hDlg, IDC_STATIC_CURRENT_FILE, FileUtils::Instance()->GetFileName());
+					break;
+				}
+			case IDC_BUTTON_CLEAR:
+				{
+					SetDlgItemText(hDlg,IDC_EDIT_INPUT_KEYS,_T(""));
 					break;
 				}
 			case IDOK:

@@ -95,6 +95,10 @@ SOURCE=.\DirectKeysDlg.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\FileUtils.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\IJob.cpp
 # End Source File
 # Begin Source File
@@ -141,6 +145,10 @@ SOURCE=.\Utils.cpp
 # Begin Source File
 
 SOURCE=.\DirectKeysDlg.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\FileUtils.h
 # End Source File
 # Begin Source File
 

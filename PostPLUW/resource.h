@@ -19,10 +19,11 @@
 #define IDC_STATIC_1                    1002
 #define IDC_EDIT_DELAY                  1003
 #define IDC_EDIT_INPUT_KEYS             1004
-#define IDC_COMBO1                      1006
-#define IDC_EDIT1                       1007
 #define IDC_EDIT_SCRIPT_NAME            1007
-#define IDC_BUTTON1                     1008
+#define IDC_BUTTON_SAVE_SCRIPT          1008
+#define IDC_BUTTON_CLEAR                1009
+#define IDC_BUTTON_OPEN_SCRIPT_FILE     1010
+#define IDC_STATIC_CURRENT_FILE         1011
 #define ID_PLU_BROWSEPLUFILE            32771
 #define ID_PLU_SENDPLUTOPOS             32772
 #define ID_PLU_STOPSENDINGPLU           32773
@@ -40,7 +41,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        131
 #define _APS_NEXT_COMMAND_VALUE         32780
-#define _APS_NEXT_CONTROL_VALUE         1009
+#define _APS_NEXT_CONTROL_VALUE         1012
 #define _APS_NEXT_SYMED_VALUE           110
 #endif
 #endif
