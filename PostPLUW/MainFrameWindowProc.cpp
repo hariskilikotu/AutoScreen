@@ -9,14 +9,17 @@
 #include "SettingsDlg.h"
 #include "SendPLUList.h"
 #include "SendKeySequence.h"
+#include "TransactQDXJob.h"
+#include "TransactQDX.h"
+#include "TransactQDXDlg.h"
 #include "Utils.h"
 #include "DirectKeysDlg.h"
 
 
-extern HINSTANCE hInst;
-extern HWND hwndMain;
-extern IJob *pCurrentJob;
-extern HWND hList;
+HINSTANCE hInst = NULL;
+HWND hwndMain = NULL;
+IJob *pCurrentJob = NULL;
+HWND hList = NULL;
 
 HWND hFilterWnd = NULL;
 HWND hStatusWnd = NULL;
@@ -139,6 +142,22 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 					}
 					break;
+				}
+			case ID_TRANSACTQDX_RUNTICKETS:
+				{
+					if(pCurrentJob == NULL)
+					{
+						TransactQDXDlg dlg;
+						dlg.Open(hWnd,GetInstance());
+
+						if(true == dlg.ShouldRun())
+						{
+							pCurrentJob = new TransactQDXJob();
+							pCurrentJob->BeginJob(hWnd,hList);
+						}
+					}
+					break;
+
 				}
 			case ID_HELP_CONTENT:
 				{

@@ -64,7 +64,6 @@ int CALLBACK DirectKeysDialogBoxProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM
 				}
 			case IDC_BUTTON_SAVE_SCRIPT:
 				{
-					//IDC_STATIC_CURRENT_FILE
 					int nSize = SendDlgItemMessage(hDlg,IDC_EDIT_INPUT_KEYS,WM_GETTEXTLENGTH,0,0);
 					
 					if(nSize>0)

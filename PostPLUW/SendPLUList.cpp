@@ -67,7 +67,7 @@ void SendPLUList::OnSendPLUFROMFile( HWND hList)
 	{
 		fclose(gblPLUfptr);
 		m_bRetryState = false;
-		int nDelay = Settings::Instance()->GetDelay();
+		int nDelay = 3000;//Settings::Instance()->GetDelay();
 		SetTimer(m_hWnd,101,nDelay,NULL);
 	}
 

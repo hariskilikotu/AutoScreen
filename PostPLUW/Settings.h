@@ -13,18 +13,24 @@
 
 struct _settingsdata
 {
-	_settingsdata(){nDelay=1000; nScriptLength=0;}
+	_settingsdata()
+	{
+		nDelay=1000; nScriptLength=0;
+		memset(szQDXPath,0,sizeof(szQDXPath)*sizeof(WCHAR));
+	}
 	int		nDelay;
 	int		nScriptLength;
-	int		reserved[100];//new requirements can consume them.
+	int		nRepeatCount;
+	int		reserved[99];//new requirements can consume them.
+	WCHAR	szQDXPath[250];
 };
 
 enum{
-	KEY_DELAY
+	KEY_DELAY,
+	KEY_REPEAT_COUNT
 };
 class Settings  
 {
-
 	std::map<std::wstring,std::wstring> m_scriptCollection;
 	WCHAR  m_szConfigFileName[100];
 	static Settings *m_pInstance;
@@ -34,19 +40,15 @@ public:
 	static Settings* Instance();
 	void UpdateDelay(int nDelay);
 	int GetDelay();
+	void UpdateRepeatCount(int nRepCount);
+	int  GetRepeatCount();
 	bool IsRestrictToSelectedWindow();
 	void GetIntValue(int nKey, int &nValue);
-	void GetTextValue(int nKey, char *pszValue);
 	void UpdateIntValue(int nKey,int nValue);
-	void UpdateTextValue(int nKey,char szValue[30]);
-	void AddScript(std::wstring name, std::wstring script);
-	void GetScript(std::wstring name, std::wstring script);
-	void LoadScripts();
-	void SaveScripts();
 	void PutScript(WCHAR * pszScript, int nLength);
 	WCHAR* GetScript();
-
-
+	void SetQDXPath( std::wstring strPath);
+	std::wstring GetQDXPath();
 };
 
 #endif // !defined(AFX_SETTINGS_H__B01E1BAC_390C_4C57_BE2E_E9C399D5A35E__INCLUDED_)

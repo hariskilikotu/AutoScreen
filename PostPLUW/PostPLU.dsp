@@ -53,7 +53,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:windows /machine:I386
-# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:windows /machine:I386
+# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib comctl32.lib /nologo /subsystem:windows /machine:I386
 
 !ELSEIF  "$(CFG)" == "PostPLU - Win32 Debug"
 
@@ -66,6 +66,7 @@ LINK32=link.exe
 # PROP Use_Debug_Libraries 1
 # PROP Output_Dir "Debug"
 # PROP Intermediate_Dir "Debug"
+# PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /Yu"stdafx.h" /FD /GZ /c
 # ADD CPP /nologo /MTd /w /W0 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_UNICODE" /D "UNICODE" /FR /Yu"stdafx.h" /FD /GZ /c
@@ -78,7 +79,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:windows /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:windows /debug /machine:I386 /pdbtype:sept
+# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib comctl32.lib /nologo /subsystem:windows /debug /machine:I386 /pdbtype:sept
 
 !ENDIF 
 
@@ -133,6 +134,30 @@ SOURCE=.\SettingsDlg.cpp
 
 SOURCE=.\StdAfx.cpp
 # ADD CPP /Yc"stdafx.h"
+# End Source File
+# Begin Source File
+
+SOURCE=.\Ticket.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\TicketListCtrl.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\TransactQDX.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\TransactQDXDlg.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\TransactQDXJob.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\TransactQDXReader.cpp
 # End Source File
 # Begin Source File
 
@@ -192,12 +217,40 @@ SOURCE=.\TestScripts.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\Ticket.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\TicketListCtrl.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\TransactQDX.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\TransactQDXDlg.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\TransactQDXJob.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\TransactQDXReader.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\Utils.h
 # End Source File
 # End Group
 # Begin Group "Resource Files"
 
 # PROP Default_Filter "ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"
+# Begin Source File
+
+SOURCE=.\bitmap1.bmp
+# End Source File
 # Begin Source File
 
 SOURCE=.\PostPLU.ico

@@ -124,6 +124,11 @@ void SendInputKey(WCHAR ch)
 		ip.ki.dwFlags = 0; // 0 for key press
 		SendInput(1, &ip, sizeof(INPUT));
 		
+		// Release the "A" key
+		ip.ki.wVk = byteKey; // virtual-key code for the "a" key
+		ip.ki.dwFlags = KEYEVENTF_KEYUP; // KEYEVENTF_KEYUP for key release
+		SendInput(1, &ip, sizeof(INPUT));
+		
 		if( bShiftON )
 		{
 			// Press the "A" key
@@ -131,12 +136,23 @@ void SendInputKey(WCHAR ch)
 			ip.ki.dwFlags = KEYEVENTF_KEYUP; // 0 for key press
 			SendInput(1, &ip, sizeof(INPUT));			
 		}
-		// Release the "A" key
-		ip.ki.wVk = byteKey; // virtual-key code for the "a" key
-		ip.ki.dwFlags = KEYEVENTF_KEYUP; // KEYEVENTF_KEYUP for key release
-		SendInput(1, &ip, sizeof(INPUT));
-		
 }
+void SendPLU(std::string strPLU)
+{
+	int nLen = strPLU.length();
+	int nIndex = 0;
+	for(nIndex =0; nIndex <nLen; nIndex++)
+	{
+		char ch = strPLU.at(nIndex);
+		SendInputKey((WCHAR)ch);
+	}
+
+}
+void SendENTER()
+{
+	SendInputKey((WCHAR)0xD);
+}
+
 // #define MOUSEEVENTF_MOVE        0x0001 /* mouse move */
 // #define MOUSEEVENTF_LEFTDOWN    0x0002 /* left button down */
 // #define MOUSEEVENTF_LEFTUP      0x0004 /* left button up */

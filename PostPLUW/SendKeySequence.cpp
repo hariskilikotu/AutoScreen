@@ -57,6 +57,9 @@ void SendKeySequence::BeginJob(HWND hWnd, HWND hList)
 
 	SetForegroundWindow(hSelectedWindow);
 
+	m_nRepCount = Settings::Instance()->GetRepeatCount();
+	m_nIterationsCompleted = 0;
+
 	Sleep(3000);
 
 	SetTimer(hWnd,SENDKEY_SEQUENCE_TIMER,Settings::Instance()->GetDelay(),NULL);
@@ -118,7 +121,15 @@ bool SendKeySequence::IsDone()
 {
 	if( m_nNextSendKeyIndex >= Utils::GetTokenCount() )
 	{
-		return true;
+		m_nIterationsCompleted++;
+
+		if( m_nIterationsCompleted >= m_nRepCount)
+			return true;
+		else
+		{
+			m_nNextSendKeyIndex =0;
+			Sleep(5000);
+		}
 	}
 
 	return false;

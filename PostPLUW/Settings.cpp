@@ -49,15 +49,9 @@ void Settings::GetIntValue(int nKey,int &nValue)
 	FILE * fptr = fopen("settings.dat","r");
 	
 	if(fptr==NULL) return;
+
+	fread(&data,1,sizeof(data),fptr);
 	
-	fseek(fptr,0,SEEK_END);
-	int nSize = ftell(fptr);
-	
-	if(nSize>0)
-	{
-		fseek(fptr,0,SEEK_SET);
-		fread(&data,1,sizeof(data),fptr);
-	}
 	switch(nKey)
 	{
 	case KEY_DELAY:
@@ -65,14 +59,16 @@ void Settings::GetIntValue(int nKey,int &nValue)
 			nValue = data.nDelay;
 			break;
 		}
+	case KEY_REPEAT_COUNT:
+		{
+			nValue = data.nRepeatCount;
+			break;
+		}
 	}
 	
 	fclose(fptr);
 }
-void Settings::GetTextValue(int nKey, char *szValue)
-{
 
-}
 void Settings::UpdateDelay(int nDelay)
 {
 	if(nDelay<0) return;
@@ -86,50 +82,52 @@ void Settings::UpdateIntValue(int nKey,int nValue)
 	_settingsdata data;
 	
 	char *pszFile = NULL;
-	FILE * fptr = fopen("settings.dat","ab");
-	
-	if(fptr==NULL) return;
-	
-	fseek(fptr,0,SEEK_END);
-	int nSize = ftell(fptr);
-	
-	if(nSize>0)
-	{
-		fseek(fptr,0,SEEK_SET);
-		fread(&data,1,sizeof(data),fptr);
-	}
-	
-	switch(nKey)
-	{
-		case KEY_DELAY:
-			{
-					data.nDelay = nValue;
-					break;
-			}
-	}
-
-	fwrite(&data,1,sizeof(data),fptr);
-	fclose(fptr);
-}
-void Settings::UpdateTextValue(int nKey,char szValue[30])
-{
-
-}
-void Settings::PutScript(WCHAR * pszScript, int nLength)
-{
-	_settingsdata data;
-	
-	char *pszFile = NULL;
-	FILE * fptr = fopen("settings.dat","wb");
+	FILE * fptr = fopen("settings.dat","rb");
 	
 	if(fptr==NULL) return;
 
 	fread(&data,1,sizeof(data),fptr);
-	data.nScriptLength = nLength;
+	fclose(fptr);
 
-	fseek(fptr,0,SEEK_SET);
+	switch(nKey)
+	{
+		case KEY_DELAY:
+			{
+				data.nDelay = nValue;
+				break;
+			}
+		case KEY_REPEAT_COUNT:
+			{
+				data.nRepeatCount = nValue;
+				break;
+			}
+	}
 
+	fptr = fopen("settings.dat","wb");
 	fwrite(&data,1,sizeof(data),fptr);
+	fclose(fptr);
+}
+void Settings::UpdateRepeatCount(int nRepCount)
+{
+	if(nRepCount<0) return;
+	
+	UpdateIntValue(KEY_REPEAT_COUNT , nRepCount);
+}
+int  Settings::GetRepeatCount()
+{
+	int nCount = 1;
+	GetIntValue(KEY_REPEAT_COUNT, nCount);
+
+	return nCount;
+
+}
+void Settings::PutScript(WCHAR * pszScript, int nLength)
+{
+	
+	char *pszFile = NULL;
+	FILE * fptr = fopen("scriptcache.dat","wb");
+	
+	if(fptr==NULL) return;
 
 	fwrite(pszScript,sizeof(WCHAR), nLength, fptr);
 
@@ -140,24 +138,25 @@ void Settings::PutScript(WCHAR * pszScript, int nLength)
 }
 WCHAR* Settings::GetScript()
 {
-	_settingsdata data;
 	
 	char *pszFile = NULL;
-	FILE * fptr = fopen("settings.dat","r+b");
+	FILE * fptr = fopen("scriptcache.dat","r+b");
 	
 	if(fptr==NULL) return NULL;
 	
-	fread(&data,1,sizeof(data),fptr);
-
 	WCHAR *pszScript = NULL;
 
-	int nLength = data.nScriptLength;
+	fseek(fptr,0,SEEK_END);
+	
+	int nLength = ftell(fptr);
+
+	fseek(fptr, 0, SEEK_SET);
 	
 	if( nLength >0 )
 	{
 		pszScript = new WCHAR[nLength];
 		memset(pszScript,0, sizeof(WCHAR)*nLength);
-		fread(pszScript, nLength, sizeof(WCHAR), fptr);
+		fread(pszScript, nLength, 1, fptr);
 		Utils::Trace("\nSettings::GetScript() reading completed");
 	}
 	else
@@ -167,20 +166,38 @@ WCHAR* Settings::GetScript()
 
 	return pszScript;
 }
-
-void AddScript(std::wstring name, std::wstring script)
+void Settings::SetQDXPath( std::wstring strPath)
 {
+	_settingsdata data;
+	
+	char *pszFile = NULL;
+	FILE * fptr = fopen("settings.dat","rb");
+	
+	if(fptr==NULL) return;
+	
+	fread(&data,1,sizeof(data),fptr);
+	fclose(fptr);
 
+	if( strPath.length()<250 )
+		wcscpy(data.szQDXPath,strPath.c_str());
+	else
+		wcscpy(data.szQDXPath,_T("***file path must be shorter than 250 characters***"));
+
+	
+	fptr = fopen("settings.dat","wb");
+	fwrite(&data,1,sizeof(data),fptr);
+	fclose(fptr);
 }
-void GetScript(std::wstring name, std::wstring script)
+std::wstring Settings::GetQDXPath()
 {
-
-}
-void LoadScripts()
-{
-
-}
-void SaveScripts()
-{
-
+	_settingsdata data;
+	
+	char *pszFile = NULL;
+	FILE * fptr = fopen("settings.dat","r");
+	
+	if(fptr==NULL) return std::wstring(_T(""));
+	
+	fread(&data,1,sizeof(data),fptr);
+	fclose(fptr);
+	return std::wstring(data.szQDXPath);
 }

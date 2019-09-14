@@ -64,6 +64,10 @@ BEGIN
     BEGIN
         MENUITEM "Send Script",                 ID_SENDKEYS_DIRECT
     END
+    POPUP "TRANSACT QDX"
+    BEGIN
+        MENUITEM "Run Tickets",                 ID_TRANSACTQDX_RUNTICKETS
+    END
     POPUP "&Help"
     BEGIN
         MENUITEM "Content",                     ID_HELP_CONTENT
@@ -105,18 +109,22 @@ STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Settings"
 FONT 8, "MS Sans Serif"
 BEGIN
-    DEFPUSHBUTTON   "OK",IDOK,277,205,50,14
-    PUSHBUTTON      "Cancel",IDCANCEL,346,205,50,14
+    DEFPUSHBUTTON   "OK",IDOK,273,201,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,342,201,50,14
     LTEXT           "Time Delay Between each PLU (milliseconds)",IDC_STATIC,
-                    13,27,158,8
-    EDITTEXT        IDC_EDIT_DELAY,170,25,86,14,ES_AUTOHSCROLL | ES_NUMBER
-    GROUPBOX        "Send PLU",IDC_STATIC,10,8,258,116
+                    16,27,158,8
+    EDITTEXT        IDC_EDIT_DELAY,177,25,86,14,ES_AUTOHSCROLL | ES_NUMBER
+    GROUPBOX        "Send PLU",IDC_STATIC,10,8,265,116
+    LTEXT           "Repeat Ticket",IDC_STATIC,122,61,52,8
+    EDITTEXT        IDC_EDIT_REPEAT_COUNT,177,59,58,14,ES_AUTOHSCROLL | 
+                    ES_NUMBER
+    LTEXT           "times",IDC_STATIC,240,61,17,8
 END
 
 IDD_DIALOG_DIRECT_KEYS DIALOGEX 0, 0, 612, 333
 STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Direct Keys"
-FONT 8, "MS Sans Serif"
+FONT 8, "MS Sans Serif", 0, 0, 0x1
 BEGIN
     DEFPUSHBUTTON   "Execute Script",IDOK,72,9,66,14
     PUSHBUTTON      "Cancel",IDCANCEL,452,9,50,14
@@ -128,6 +136,24 @@ BEGIN
     PUSHBUTTON      "Open Script",IDC_BUTTON_OPEN_SCRIPT_FILE,270,9,50,14
     LTEXT           "File Name",IDC_STATIC_CURRENT_FILE,7,311,355,15,0,
                     WS_EX_STATICEDGE
+END
+
+IDD_DIALOG_TRANSACTQDX DIALOG DISCARDABLE  0, 0, 612, 333
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Transact QDX"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "Close",IDOK,538,229,50,14
+    EDITTEXT        IDC_EDIT_QDX_PATH,18,14,309,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "Browse",IDC_BUTTON_QDX_BROWSE,340,13,50,14
+    PUSHBUTTON      "Execute",IDC_BUTTON_RUN_QDX_TICKETS,536,154,50,14
+    CONTROL         "Tree1",IDC_TREE_QDX_TICKET_LIST,"SysTreeView32",
+                    TVS_HASBUTTONS | TVS_HASLINES | TVS_LINESATROOT | 
+                    TVS_CHECKBOXES | TVS_TRACKSELECT | TVS_FULLROWSELECT | 
+                    WS_BORDER | WS_TABSTOP,18,43,498,273
+    PUSHBUTTON      "Refresh",IDC_BUTTON1,406,13,50,14
+    PUSHBUTTON      "Select All",IDC_BUTTON2,533,49,50,14
+    PUSHBUTTON      "Un Select All",IDC_BUTTON3,536,78,50,14
 END
 
 
@@ -189,9 +215,24 @@ BEGIN
         TOPMARGIN, 7
         BOTTOMMARGIN, 326
     END
+
+    IDD_DIALOG_TRANSACTQDX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 605
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 326
+    END
 END
 #endif    // APSTUDIO_INVOKED
 
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_TREE                BITMAP  DISCARDABLE     "bitmap1.bmp"
 
 /////////////////////////////////////////////////////////////////////////////
 //

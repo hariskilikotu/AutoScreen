@@ -33,6 +33,8 @@ int CALLBACK SettingsDialogBoxProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM l
 		{
 			int nDelay = Settings::Instance()->GetDelay();
 			SetDlgItemInt(hDlg,IDC_EDIT_DELAY,nDelay,FALSE);
+			int nRepCount = Settings::Instance()->GetRepeatCount();
+			SetDlgItemInt(hDlg,IDC_EDIT_REPEAT_COUNT,nRepCount,FALSE);
 			break;
 		}
 	case WM_COMMAND:
@@ -48,6 +50,10 @@ int CALLBACK SettingsDialogBoxProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM l
 				{
 					int nDelay = GetDlgItemInt(hDlg,IDC_EDIT_DELAY,NULL,FALSE);
 					Settings::Instance()->UpdateDelay(nDelay);
+
+					int nRepeatCount = GetDlgItemInt(hDlg,IDC_EDIT_REPEAT_COUNT,NULL,FALSE);
+					Settings::Instance()->UpdateRepeatCount(nRepeatCount);
+
 					EndDialog(hDlg, 0);
 					break;
 				}

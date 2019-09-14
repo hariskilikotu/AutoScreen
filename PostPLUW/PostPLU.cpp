@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "resource.h"
 #include "stdio.h"
+#include <commctrl.h>
 #include "Utils.h"
 #include "SendPLUList.h"
 #include "SendKeySequence.h"
@@ -12,8 +13,8 @@
 
 
 // Global Variables:
-HINSTANCE hInst;
-HWND hwndMain;								// current instance
+extern HINSTANCE hInst;
+extern HWND hwndMain;								// current instance
 TCHAR szTitle[MAX_LOADSTRING];								// The title bar text
 TCHAR szWindowClass[MAX_LOADSTRING];								// The title bar text
 int  gblnCount;
@@ -25,8 +26,8 @@ LRESULT CALLBACK	About(HWND, UINT, WPARAM, LPARAM);
 
 
 
-IJob *pCurrentJob = NULL;
-HWND hList = NULL;
+extern IJob *pCurrentJob;
+extern HWND hList;
 
 int APIENTRY WinMain(HINSTANCE hInstance,
                      HINSTANCE hPrevInstance,
@@ -42,6 +43,7 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	LoadString(hInstance, IDC_POSTPLU, szWindowClass, MAX_LOADSTRING);
 	MyRegisterClass(hInstance);
 
+	InitCommonControls();
 	// Perform application initialization:
 	if (!InitInstance (hInstance, nCmdShow)) 
 	{

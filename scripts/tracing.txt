@@ -1,0 +1,4 @@
+
+Settings::PutScript() End
+In(Key:Shift)=>65(65:1)
+Settings::GetScript() reading completed

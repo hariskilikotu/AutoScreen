@@ -35,6 +35,8 @@ namespace Utils
 	wchar_t * ConvertToW(char *ansiString, int &nBuffSize);
 	void ProcessToken(int nTokenIndex, HWND hSelectedWindow);
 	void SendInputKey(WCHAR ch);
+	void SendPLU(std::string strPLU);
+	void SendENTER();
 	BOOL CALLBACK enumWindowsProc(HWND hWnd,  LPARAM lParam);
 	std::wstring Translate(WCHAR szCommand[100]);
 	WCHAR GetActualKey(std::wstring szKeyName);

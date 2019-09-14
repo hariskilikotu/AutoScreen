@@ -25,6 +25,9 @@ class SendKeySequence : public IJob
 	WCHAR	*m_pCurrentCommandCursor;
 	WCHAR	 m_szLastReadCommand[100];
 
+	int m_nRepCount;
+	int m_nIterationsCompleted;
+
 public:
 	SendKeySequence(char *pszInputFileName);
 	virtual ~SendKeySequence();
@@ -33,7 +36,6 @@ public:
 	virtual void OnNextStep();
 	virtual void EndJob();
 	virtual bool IsDone();
-	void SendNextCommand();
 
 
 	int GetInterruptDelay(int nIndex);
